@@ -1,0 +1,80 @@
+				Type of Orders
+===========================================================================================================
+
+MarketOrder 		:= An order that is filled immediately at the current price.
+LimitOrder 		:= An order that is filled only if price is equal to or better than a threshold.
+StopOrder 		:= An order that is filled only if the price is equal to or worse than a threshold.
+MarketIfTouchedOrder 	:= An order that is filled if the price touches or crosses the threshold.
+				(Becomes a market order at the threshold price)
+TakeProfitOrder		:= Can be used against an open order only to define a take profit threshold.
+StopLossOrder		:= Can be used against an open order only to define the stop loss threshold.
+TrailingStopLossOrder	:= Can be used against an open order only to define the trailing stop loss threshold.
+
+===========================================================================================================
+===========================================================================================================
+
+				Order Properties
+===========================================================================================================
+===========================================================================================================
+OrderID			:= The order identifier - unique within the account
+OrderType		:= Type of the order
+				Value			|	Description
+				========================|=================================
+				MARKET			|	A Market Order
+				LIMIT			|	A Limit Order
+				STOP			|	A Stop Order
+				MARKET_IF_TOUCHED	|	A Market-if-touched Order
+				TAKE_PROFIT		|	A Take Profit Order
+				STOP_LOSS		|	A Stop Loss Order
+				TRAILING_STOP_LOSS	|	A Trailing Stop Loss Order
+				==========================================================
+CancellableOrderType	:= Type of Orders that can be cancelled (all except market orders)
+OrderState		:= Current state of the order
+				Value			|	Description
+				========================|=================================
+				PENDING			|	The Order is currently pending execution
+				FILLED			|	The Order has been filled
+				TRIGGERED		|	The Order has been triggered
+				CANCELLED		|	The Order has been cancelled
+				==========================================================
+OrderStateFilter	:= The OrderState used to filter the requested orders by
+OrderIdentifier		:= Contains both OrderID and ClientOrderID
+TimeInForce		:= Determines how long the oreder remains in the execution system before being cancelled
+				Value			|	Description
+				========================|=====================================================================================
+				GTC			|	The Order is “Good unTil Cancelled”					      |
+				GTD			|	The Order is “Good unTil Date” and will be cancelled at the provided time     | 
+				GFD			|	The Order is “Good For Day” and will be cancelled at 5pm New York time	      |
+				FOK			|	The Order must be immediately “Filled Or Killed”			      |
+				IOC			|	The Order must be “Immediatedly paritally filled Or Cancelled”		      |
+				==============================================================================================================
+OrderPositionFill	:= Specifications of how positions in the order are modified when orders are filled
+				Value			|	Description
+				========================|==================================
+				OPEN_ONLY		|	When the Order is filled, only allow Positions to be 
+							|	opened or extended.
+				REDUCE_FIRST		|	When the Order is filled, always fully reduce an existing 
+							|	Position before opening a new Position.
+				REDUCE_ONLY		|	When the Order is filled, only reduce an existing Position.
+				DEFAULT			|	When the Order is filled, use REDUCE_FIRST behaviour for 
+							|	non-client hedging Accounts, and OPEN_ONLY behaviour for 
+							|	client hedging Accounts.
+				==========================================================
+OrderTriggerCondition	:= Determines which price component will be used to decide if an order would be triggered and filled.
+				Value			|	Description
+				========================|==================================
+				DEFAULT			|	Trigger an Order the “natural” way: compare its price
+							|	 to the ask for long Orders and bid for short Orders.
+				INVERSE			|	Trigger an Order the opposite of the “natural” way: 
+							|	compare its price the bid for long Orders and ask for short Orders.
+				BID			|	Trigger an Order by comparing its price to the bid 
+							|	regardless of whether it is long or short.
+				ASK			|	Trigger an Order by comparing its price to the ask 
+							|	regardless of whether it is long or short.
+				MID			|	Trigger an Order by comparing its price to the midpoint 
+							|	regardless of whether it is long or short.
+				==========================================================
+DynamicOrderState	:= Only relevant for a trailing stop loss order determining the trailing stop value, distance (from the current
+				market price) and if these calculations are exact.
+UnitsAvailableDetails	:= Units available to be traded for both long and short orders.
+UnitsAvailable		:= Units available to be traded based on the OrderPositionFill option.
